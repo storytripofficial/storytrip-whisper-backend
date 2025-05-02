@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: storytrip-whisper
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: ./start.sh
