@@ -2,3 +2,4 @@ flask
 openai-whisper
 torch
 gunicorn
+ffmpeg-python
