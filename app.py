@@ -3,9 +3,7 @@ from flask import Flask, request, jsonify
 import os
 
 app = Flask(__name__)
-
-# Usamos el modelo más ligero para evitar errores de memoria
-model = whisper.load_model("tiny")
+model = whisper.load_model("tiny")  # modelo ligero para Render gratuito
 
 @app.route('/transcribe', methods=['POST'])
 def transcribe():
