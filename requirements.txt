@@ -1,5 +1,4 @@
 flask
-openai-whisper
-torch
 gunicorn
+openai-whisper
 ffmpeg-python
