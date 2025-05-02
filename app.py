@@ -3,7 +3,9 @@ from flask import Flask, request, jsonify
 import os
 
 app = Flask(__name__)
-model = whisper.load_model("base")  # Puedes cambiar a "tiny" para más velocidad
+
+# Usamos el modelo más ligero para evitar errores de memoria
+model = whisper.load_model("tiny")
 
 @app.route('/transcribe', methods=['POST'])
 def transcribe():
@@ -14,7 +16,11 @@ def transcribe():
     file_path = f"temp_{audio_file.filename}"
     audio_file.save(file_path)
 
-    result = model.transcribe(file_path)
-    os.remove(file_path)
+    try:
+        result = model.transcribe(file_path)
+    except Exception as e:
+        os.remove(file_path)
+        return jsonify({"error": str(e)}), 500
 
+    os.remove(file_path)
     return jsonify({"text": result['text']})
